@@ -1,0 +1,153 @@
+/* Importing Google font - Open Sans */
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Open Sans", sans-serif;
+}
+
+/* Fullscreen background video */
+body {
+    height: 100vh;
+    width: 100%;
+    overflow: hidden; /* Prevent scrolling */
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Center content vertically and horizontally */
+    position: relative;
+}
+
+/* Video background styling */
+.background-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensure video covers entire screen */
+    z-index: -1; /* Place the video behind the content */
+}
+
+/* Styling for form container */
+.form-container {
+    width: 100%;
+    max-width: 1000px;
+    background: rgba(255, 255, 255, 0.9); /* Semi-transparent background */
+    padding: 80px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    z-index: 1;
+    position: relative; /* Ensure positioning works correctly with the animated background */
+    background: linear-gradient(45deg, #ff7e5f, #feb47b); /* Default gradient */
+    animation: gradientAnimation 5s ease infinite; /* Apply the animation */
+}
+
+/* Define the animation for background gradient change */
+@keyframes gradientAnimation {
+    0% {
+        background: linear-gradient(45deg, #ff7e5f, #feb47b);
+    }
+    25% {
+        background: linear-gradient(45deg, #6a11cb, #2575fc);
+    }
+    50% {
+        background: linear-gradient(45deg, #ff8a00, #da1b60);
+    }
+    75% {
+        background: linear-gradient(45deg, #ff9a8b, #fad0c4);
+    }
+    100% {
+        background: linear-gradient(45deg, #ff7e5f, #feb47b);
+    }
+}
+
+
+/* Form title */
+.form-title {
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Form box layout */
+.form-box {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Input field group */
+.input-field1 {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+/* Individual input field */
+.input-field {
+    position: relative;
+    height: 50px;
+    width: 100%;
+}
+
+/* Input field styling */
+.input-field input,
+.input-field select {
+    height: 100%;
+    width: 100%;
+    padding: 0 15px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    transition: border 0.3s ease;
+}
+
+/* Input focus state */
+.input-field input:focus,
+.input-field select:focus {
+    border: 1px solid #00bcd4;
+}
+
+/* Label positioning and styling */
+.input-field label {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    color: #999;
+    pointer-events: none;
+    transition: transform 0.2s ease, font-size 0.2s ease;
+}
+
+/* Input field active state */
+.input-field input:focus ~ label,
+.input-field input:valid ~ label,
+.input-field select:focus ~ label {
+    transform: translateY(-120%);
+    font-size: 0.85rem;
+    color: #00bcd4;
+}
+
+/* Submit button styling */
+.form-button {
+    width: 100%;
+    padding: 12px 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: white;
+    background-color: #00bcd4;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Hover effect for button */
+.form-button:hover {
+    background-color: #0097a7;
+}

@@ -1,0 +1,278 @@
+/* Global Styles */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: #ecf0f3;
+    color: #31344b;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background: #ecf0f3;
+    box-shadow: -3px -3px 7px #ffffff, 3px 3px 5px #ceced1;
+    position: fixed;
+    left: 0;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+    z-index: 1000;
+}
+
+.sidebar .title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.sidebar .logo {
+    font-size: 24px;
+    font-weight: 600;
+    color: #3498db;
+}
+
+.sidebar ul {
+    list-style: none;
+    margin-top: 20px;
+}
+
+.sidebar ul li {
+    margin: 15px 0;
+}
+
+.sidebar ul li a {
+    text-decoration: none;
+    font-size: 18px;
+    color: #31344b;
+    padding: 10px 15px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: 0.3s ease;
+    box-shadow: -3px -3px 7px #ffffff, 3px 3px 5px #ceced1;
+}
+
+.sidebar ul li a:hover {
+    background: #3498db;
+    color: #ffffff;
+    box-shadow: inset -3px -3px 7px #ffffff, inset 3px 3px 5px #ceced1;
+}
+
+.sidebar ul li a span {
+    font-size: 16px;
+}
+
+/* Main Content Styles */
+.dashboard-header {
+  position: fixed;
+  top: 0;
+  left: 250px;
+  width: calc(100% - 250px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #ddd;
+  z-index: 9999;
+}
+
+.search-bar input {
+  padding: 8px;
+  width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.username {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.main-content {
+  margin-top: 60px;
+  padding: 20px;
+}
+
+/* List Container */
+.list-container {
+    /* Main container for the list */
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    max-height: calc(100vh - 120px); /* Adjusted for fixed header */
+    overflow-y: auto; /* Ensures scroll for data */
+    margin-bottom: 2%;
+}
+
+/* Table Styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: auto; /* Table will dynamically adjust column widths */
+    margin-top: 20px;
+}
+
+table th, table td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ddd;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+table th {
+    background-color: #3498db;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+table td {
+    background-color: #f9f9f9;
+}
+
+/* Row Hover Effect */
+table tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Zebra Striping for Rows */
+table tr:nth-child(even) {
+    background-color: #f3f3f3;
+}
+
+table tr:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+/* Action buttons section */
+.action-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.update-btn, .delete-btn {
+    padding: 8px 15px;
+    font-size: 14px;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    min-width: 80px;
+    text-align: center;
+}
+
+.update-btn {
+    background-color: #3498db;
+}
+
+.delete-btn {
+    background-color: #e74c3c;
+}
+
+.update-btn:hover {
+    background-color: #2980b9;
+    transform: scale(1.05); /* Slight zoom effect on hover */
+}
+
+.delete-btn:hover {
+    background-color: #c0392b;
+    transform: scale(1.05); /* Slight zoom effect on hover */
+}
+
+.update-btn:focus, .delete-btn:focus {
+    outline: none;
+}
+
+/* Add a message when no data is available */
+td[colspan="5"] {
+    text-align: center;
+    color: #999;
+    font-style: italic;
+    padding: 20px;
+}
+
+/* Styling for the header */
+h2 {
+    font-size: 24px;
+    color: #333;
+    font-weight: bold;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+
+/* Footer Styles */
+footer {
+  text-align: center;
+  padding: 15px 10px;
+  font-size: 14px;
+  color: #7a7a7a;
+  border-top: 1px solid #ceced1;
+}
+
+footer .social-icons {
+  margin-top: 10px;
+}
+
+footer .social-icons a {
+  margin: 0 10px;
+  font-size: 18px;
+  color: #31344b;
+  transition: 0.3s;
+}
+
+footer .social-icons a:hover {
+  color: #3498db;
+}
+
+/* Responsive Design */
+@media (max-width: 940px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .sidebar ul {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+  }
+
+  .sidebar ul li {
+    margin: 0;
+  }
+
+  .main-content {
+    margin-left: 0;
+    padding: 20px;
+  }
+
+  /* Adjust dashboard header layout for small screens */
+  .dashboard-header {
+    width: 100%;
+    padding: 10px;
+  }
+
+  /* Adjust list container height for small screens */
+  .list-container {
+    max-height: calc(100vh - 120px); /* To prevent overflow on smaller screens */
+  }
+}

@@ -1,0 +1,41 @@
+/* Help Section */
+.help-container {
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-top: 80px;
+  }
+  
+  .help-container h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #333;
+  }
+  
+  .faqs h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .faqs ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .faqs ul li {
+    margin-bottom: 10px;
+    padding: 10px;
+    background: #f9f9f9;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+  }
+  
+  .faqs ul li strong {
+    color: #3498db;
+  }
+  
+  .faqs ul li:hover {
+    background: #e9f4fc;
+    border-color: #3498db;
+  }

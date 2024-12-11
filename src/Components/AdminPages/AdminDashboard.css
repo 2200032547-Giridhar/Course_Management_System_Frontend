@@ -1,0 +1,239 @@
+/* Global Styles */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: #ecf0f3;
+    color: #31344b;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background: #ecf0f3;
+    box-shadow: -3px -3px 7px #ffffff, 3px 3px 5px #ceced1;
+    position: fixed;
+    left: 0;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.sidebar .title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.sidebar .logo {
+    font-size: 24px;
+    font-weight: 600;
+    color: #3498db;
+}
+
+.sidebar ul {
+    list-style: none;
+    margin-top: 20px;
+}
+
+.sidebar ul li {
+    margin: 15px 0;
+}
+
+.sidebar ul li a {
+    text-decoration: none;
+    font-size: 18px;
+    color: #31344b;
+    padding: 10px 15px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: 0.3s ease;
+    box-shadow: -3px -3px 7px #ffffff, 3px 3px 5px #ceced1;
+}
+
+.sidebar ul li a:hover {
+    background: #3498db;
+    color: #ffffff;
+    box-shadow: inset -3px -3px 7px #ffffff, inset 3px 3px 5px #ceced1;
+}
+
+.sidebar ul li a span {
+    font-size: 16px;
+}
+
+/* Main Content Styles */
+
+
+.main-content h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.main-content p {
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+/* Footer Styles */
+footer {
+    text-align: center;
+    padding: 15px 10px;
+    font-size: 14px;
+    color: #7a7a7a;
+    border-top: 1px solid #ceced1;
+}
+
+footer .social-icons {
+    margin-top: 10px;
+}
+
+footer .social-icons a {
+    margin: 0 10px;
+    font-size: 18px;
+    color: #31344b;
+    transition: 0.3s;
+}
+
+footer .social-icons a:hover {
+    color: #3498db;
+}
+
+.logout-btn {
+    background: #3498db;
+    color: #ffffff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.logout-btn:hover {
+    background: #216eb5;
+}
+
+/* Fixed Header Styles */
+.dashboard-header {
+  position: fixed;
+  top: 0;
+  left: 250px; /* Align header to the right of the sidebar */
+  width: calc(100% - 250px); /* Adjust width to account for the sidebar */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #ddd;
+  z-index: 9999; /* Keeps the header on top of other content */
+}
+
+/* Search Input Styles */
+.search-bar input {
+  padding: 8px;
+  width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Username Style */
+.username {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/* Main Content Styles */
+.main-content {
+  margin-left: 270px; /* Push content right to avoid overlap with sidebar */
+  margin-top: 70px; /* Push content down to avoid overlap with fixed header */
+  padding: 40px;
+  flex-grow: 1;
+}
+
+/* Responsive Design for Sidebar and Main Content */
+@media (max-width: 940px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .sidebar ul {
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+    }
+
+    .sidebar ul li {
+        margin: 0;
+    }
+
+    .main-content {
+        margin-left: 0;
+        padding: 20px;
+    }
+}
+
+/* Stats Container */
+.stats-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 3 equal columns */
+  gap: 20px; /* Space between each stat item */
+  margin-top: 20px;
+  padding: 20px; /* Optional: Add padding for aesthetics */
+}
+
+/* Stat Item */
+.stat-item {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: -3px -3px 7px #ffffff, 3px 3px 5px #ceced1;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.stat-item:hover {
+  transform: translateY(-10px);
+  box-shadow: -5px -5px 15px #ffffff, 5px 5px 10px #b8b9be;
+}
+
+/* FontAwesome Icon */
+.stat-item svg {
+  margin-bottom: 10px; /* Space between icon and text */
+  color: #3498db; /* Blue color for the icons */
+}
+
+/* Title Styling (h3) */
+.stat-item h3 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #3498db;
+  margin-bottom: 10px;
+}
+
+/* Description Text */
+.stat-item p {
+  font-size: 16px;
+  color: #7a7a7a;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .stats-container {
+      grid-template-columns: repeat(1, 1fr); /* 1 column layout for small screens */
+  }
+}
