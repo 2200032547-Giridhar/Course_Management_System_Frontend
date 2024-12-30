@@ -90,37 +90,37 @@ useEffect(() => {
         </div>
         <ul>
           <li>
-            <a href={`https://coursemanagementsystembackend-production.up.railway.app/api/v1/admin-dashboard/${id}`}>
+            <a href={`/admin-dashboard/${id}`}>
               <FontAwesomeIcon icon={faHome} />
               <span className="nav-item">Home</span>
             </a>
           </li>
           <li>
-            <a href={`https://coursemanagementsystembackend-production.up.railway.app/api/v1/students-list/${id}`}>
+            <a href={`/students-list/${id}`}>
               <FontAwesomeIcon icon={faUsersCog} />
               <span className="nav-item">Users List</span>
             </a>
           </li>
           <li>
-            <a href={`https://coursemanagementsystembackend-production.up.railway.app/api/v1/course-list/${id}`}>
+            <a href={`/course-list/${id}`}>
               <FontAwesomeIcon icon={faGraduationCap} />
               <span className="nav-item">Courses List</span>
             </a>
           </li>
           <li>
-            <a href={`https://coursemanagementsystembackend-production.up.railway.app/api/v1/settings1/${id}`}>
+            <a href={`/settings1/${id}`}>
               <FontAwesomeIcon icon={faCog} />
               <span className="nav-item">Profile</span>
             </a>
           </li>
           <li>
-            <a href={`https://coursemanagementsystembackend-production.up.railway.app/api/v1/help1/${id}`}>
+            <a href={`/help1/${id}`}>
               <FontAwesomeIcon icon={faQuestionCircle} />
               <span className="nav-item">Help</span>
             </a>
           </li>
           <li>
-            <a href="https://coursemanagementsystembackend-production.up.railway.app/api/v1/login">
+            <a href="/login">
               <FontAwesomeIcon icon={faSignOutAlt} />
               <span>Logout</span>
             </a>
