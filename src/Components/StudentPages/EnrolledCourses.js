@@ -16,7 +16,7 @@ function EnrolledCourses() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetch(`http://localhost:8080/api/v1/users/${id}`)
+        fetch(`https://coursemanagementsystembackend-production.up.railway.app/api/v1/users/${id}`)
             .then((response) => response.json())
             .then((data) => setStudentDetails(data))
             .catch((error) => console.error(error));
@@ -35,7 +35,7 @@ function EnrolledCourses() {
 
     useEffect(() => {
         // Fetch enrolled courses
-        axios.get(`http://localhost:8080/api/v1/enrollments/${id}/enrolled-courses`)
+        axios.get(`https://coursemanagementsystembackend-production.up.railway.app/api/v1/enrollments/${id}/enrolled-courses`)
             .then(response => {
                 setEnrolledCourses(response.data);
                 setIsLoading(false);
