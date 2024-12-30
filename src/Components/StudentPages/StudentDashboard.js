@@ -13,7 +13,7 @@ function StudentDashboard() {
     const [studentDetails, setStudentDetails] = useState({});
 
     useEffect(() => {
-        fetch(`http://localhost:8080/api/v1/users/${id}`)
+        fetch(`https://coursemanagementsystembackend-production.up.railway.app/api/v1/users/${id}`)
             .then((response) => response.json())
             .then((data) => setStudentDetails(data))
             .catch((error) => console.error(error));
