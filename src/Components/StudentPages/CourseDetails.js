@@ -39,7 +39,7 @@ function CourseDetails({ userId }) {
             // Redirect to the dashboard with student ID in the URL (assuming the student ID is stored in user.id)
             navigate(`/courses/${id}/${courseId}`);
         } else {
-            navigate("/login");  // If no user, redirect to login page
+            navigate("https://coursemanagementsystembackend-production.up.railway.app/api/v1/login");  // If no user, redirect to login page
         }
     }, [navigate, id, courseId]);
 
@@ -108,13 +108,13 @@ function CourseDetails({ userId }) {
                     <div className="logo">Coding Courses</div>
                 </div>
                 <ul>
-                    <li><a href={`/student-dashboard/${id}`}><FontAwesomeIcon icon={faHome} /><span>Home</span></a></li>
-                    <li><a href={`/courses/${id}`}><FontAwesomeIcon icon={faGraduationCap} /><span>Courses</span></a></li>
-                    <li><a href={`/${id}/enrolled-courses`}><FontAwesomeIcon icon={faChartBar} /><span>My Courses</span></a></li>
-                    <li><a href="/tasks"><FontAwesomeIcon icon={faTasks} /><span>Tasks</span></a></li>
-                    <li><a href={`/settings/${id}`}><FontAwesomeIcon icon={faCog} /><span>Profile</span></a></li>
-                    <li><a href={`/Help/${id}`}><FontAwesomeIcon icon={faQuestionCircle} /><span>Help</span></a></li>
-                    <li><a href="/login"><FontAwesomeIcon icon={faSignOutAlt} /><span>Logout</span></a></li>
+                    <li><a href={`https://coursemanagementsystembackend-production.up.railway.app/api/v1/student-dashboard/${id}`}><FontAwesomeIcon icon={faHome} /><span>Home</span></a></li>
+                    <li><a href={`https://coursemanagementsystembackend-production.up.railway.app/api/v1/courses/${id}`}><FontAwesomeIcon icon={faGraduationCap} /><span>Courses</span></a></li>
+                    <li><a href={`https://coursemanagementsystembackend-production.up.railway.app/api/v1/${id}/enrolled-courses`}><FontAwesomeIcon icon={faChartBar} /><span>My Courses</span></a></li>
+                    <li><a href="https://coursemanagementsystembackend-production.up.railway.app/api/v1/tasks"><FontAwesomeIcon icon={faTasks} /><span>Tasks</span></a></li>
+                    <li><a href={`https://coursemanagementsystembackend-production.up.railway.app/api/v1/settings/${id}`}><FontAwesomeIcon icon={faCog} /><span>Profile</span></a></li>
+                    <li><a href={`https://coursemanagementsystembackend-production.up.railway.app/api/v1/Help/${id}`}><FontAwesomeIcon icon={faQuestionCircle} /><span>Help</span></a></li>
+                    <li><a href="https://coursemanagementsystembackend-production.up.railway.app/api/v1/login"><FontAwesomeIcon icon={faSignOutAlt} /><span>Logout</span></a></li>
                 </ul>
                 <footer>
                     <p>&copy; 2024 Uppada Giridhar. All Rights Reserved.</p>
