@@ -23,7 +23,7 @@ const CourseList = () => {
 
 
   useEffect(() => {
-    fetch(`http://localhost:8080/api/v1/users/${id}`)
+    fetch(`https://coursemanagementsystembackend-production.up.railway.app/api/v1/users/${id}`)
         .then((response) => response.json())
         .then((data) => setStudentDetails(data))
         .catch((error) => console.error(error));
@@ -44,7 +44,7 @@ useEffect(() => {
   useEffect(() => {
     // Fetch all courses from the backend API
     axios
-      .get('http://localhost:8080/api/v1/courses/course-list')
+      .get('https://coursemanagementsystembackend-production.up.railway.app/api/v1/courses/course-list')
       .then((response) => {
         setCourses(response.data); // Set the courses data
       })
@@ -55,7 +55,7 @@ useEffect(() => {
 
   const handleDelete = (courseId) => {
     axios
-      .delete(`http://localhost:8080/api/v1/courses/delete/${courseId}`)
+      .delete(`https://coursemanagementsystembackend-production.up.railway.app/api/v1/courses/delete/${courseId}`)
       .then((response) => {
         setCourses(courses.filter((course) => course.courseId !== courseId));
         setMessage('Course deleted successfully!');
@@ -103,7 +103,7 @@ useEffect(() => {
   const openStudentListModal = (courseId) => {
     // Fetch the students enrolled in the course
     axios
-      .get(`http://localhost:8080/api/v1/courses/${courseId}/students`)
+      .get(`https://coursemanagementsystembackend-production.up.railway.app/api/v1/courses/${courseId}/students`)
       .then((response) => {
         setEnrolledStudents(response.data); // Set enrolled students
         setIsStudentsModalOpen(true); // Open the modal to show students
