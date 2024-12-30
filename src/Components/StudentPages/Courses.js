@@ -15,7 +15,7 @@ function Courses() {
     const [studentDetails, setStudentDetails] = useState({});
 
     useEffect(() => {
-        fetch(`http://localhost:8080/api/v1/users/${id}`)
+        fetch(`https://coursemanagementsystembackend-production.up.railway.app/api/v1/users/${id}`)
             .then((response) => response.json())
             .then((data) => setStudentDetails(data))
             .catch((error) => console.error(error));
@@ -35,7 +35,7 @@ function Courses() {
     useEffect(() => {
       // Fetch all courses from the backend API
       axios
-        .get('http://localhost:8080/api/v1/courses/course-list')
+        .get('https://coursemanagementsystembackend-production.up.railway.app/api/v1/courses/course-list')
         .then((response) => {
           // Set the courses data received from the API
           setCourses(response.data);
