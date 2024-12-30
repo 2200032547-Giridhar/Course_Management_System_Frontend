@@ -12,7 +12,7 @@ const AddCourse = ({ onClose }) => {
   const [rating, setRating] = useState(0);
   const [category, setCategory] = useState('');
 
-  const API_URL = 'http://localhost:8080/api/v1/courses';
+  const API_URL = 'coursemanagementsystembackend-production.up.railway.app/api/v1/courses';
   const CREATE_COURSE_API = `${API_URL}/create-course`;
 
   const handleSubmit = (e) => {
