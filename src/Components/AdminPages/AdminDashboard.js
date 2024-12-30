@@ -27,7 +27,7 @@ function AdminDashboard() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`http://localhost:8080/api/v1/users/${id}`)
+    fetch(`https://coursemanagementsystembackend-production.up.railway.app//api/v1/users/${id}`)
         .then((response) => response.json())
         .then((data) => setStudentDetails(data))
         .catch((error) => console.error(error));
@@ -49,7 +49,7 @@ useEffect(() => {
     // Function to fetch role counts
     async function fetchRoleCounts() {
       try {
-        const response = await fetch("http://localhost:8080/api/v1/users/overview");
+        const response = await fetch("https://coursemanagementsystembackend-production.up.railway.app//api/v1/users/overview");
         const data = await response.json();
         setRoleCounts({
           students: data.students || 0,
@@ -64,7 +64,7 @@ useEffect(() => {
     // Function to fetch course count
     async function fetchCourseCount() {
       try {
-        const response = await fetch("http://localhost:8080/api/v1/courses/course-count");
+        const response = await fetch("https://coursemanagementsystembackend-production.up.railway.app//api/v1/courses/course-count");
         const data = await response.json();
         setCourseCount(data.courses || 0); // Only updating course count
       } catch (error) {
