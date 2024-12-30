@@ -15,7 +15,7 @@ function UpdateCourse({ courseId, onClose, onUpdate }) {
 
   useEffect(() => {
     // Fetch the course data from the API when the modal opens
-    fetch(`http://localhost:8080/api/v1/courses/course-list`)
+    fetch(`https://coursemanagementsystembackend-production.up.railway.app/api/v1/courses/course-list`)
       .then((response) => response.json())
       .then((data) => {
         const courseData = data.find((c) => c.courseId === parseInt(courseId));
@@ -41,7 +41,7 @@ function UpdateCourse({ courseId, onClose, onUpdate }) {
     e.preventDefault();
 
     // Send updated course data back to the API
-    fetch(`http://localhost:8080/api/v1/courses/update/${courseId}`, {
+    fetch(`https://coursemanagementsystembackend-production.up.railway.app/api/v1/courses/update/${courseId}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
