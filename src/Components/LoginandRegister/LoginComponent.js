@@ -24,7 +24,7 @@ function LoginComponent() {
 
         try {
             const response = await axios.post(
-                'http://localhost:8080/api/v1/users/login',
+                'https://coursemanagementsystembackend-production.up.railway.app/api/v1/users/login',
                 credentials
             );
 
