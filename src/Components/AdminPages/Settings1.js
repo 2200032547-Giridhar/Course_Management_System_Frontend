@@ -24,7 +24,7 @@ function Settings1() {
     const [user, setUser] = useState(null); 
 
     useEffect(() => {
-        fetch(`http://localhost:8080/api/v1/users/${id}`)
+        fetch(`https://coursemanagementsystembackend-production.up.railway.app/api/v1/users/${id}`)
             .then((response) => response.json())
             .then((data) => setStudentDetails(data))
             .catch((error) => console.error(error));
@@ -45,7 +45,7 @@ function Settings1() {
         // Fetch user details to populate the form
         setLoading(true);
         axios
-            .get(`http://localhost:8080/api/v1/users/${id}`)
+            .get(`https://coursemanagementsystembackend-production.up.railway.app/api/v1/users/${id}`)
             .then((response) => {
                 setUserDetails(response.data);
                 setLoading(false);
@@ -69,7 +69,7 @@ function Settings1() {
         setLoading(true);
 
         axios
-            .put(`http://localhost:8080/api/v1/users/${id}`, userDetails)
+            .put(`https://coursemanagementsystembackend-production.up.railway.app/api/v1/users/${id}`, userDetails)
             .then(() => {
                 setMessage("Settings updated successfully!");
                 setLoading(false);
