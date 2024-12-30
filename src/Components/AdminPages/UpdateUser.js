@@ -11,7 +11,7 @@ function UpdateUser({ userId, onClose }) {
 
   // Fetch user data based on userId and update state
   useEffect(() => {
-    fetch(`http://localhost:8080/api/v1/users/${userId}`)
+    fetch(`https://coursemanagementsystembackend-production.up.railway.app/api/v1/users/${userId}`)
       .then((response) => response.json())
       .then((data) => setUser(data))
       .catch((error) => {
@@ -34,7 +34,7 @@ function UpdateUser({ userId, onClose }) {
     e.preventDefault();
 
     // Send a PUT request with updated user data
-    fetch(`http://localhost:8080/api/v1/users/${userId}`, {
+    fetch(`https://coursemanagementsystembackend-production.up.railway.app/api/v1/users/${userId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
