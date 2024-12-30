@@ -87,13 +87,13 @@ function Settings1() {
         <div className="dashboard-container">
           <div className="sidebar">
             <div className="logo">Coding Courses</div>
-            <ul>
-        <li><a href={`https://coursemanagementsystembackend-production.up.railway.app/api/v1/admin-dashboard/${id}`}><FontAwesomeIcon icon={faHome} /> Home</a></li>
-          <li><a href={`https://coursemanagementsystembackend-production.up.railway.app/api/v1/students-list/${id}`}><FontAwesomeIcon icon={faUsersCog} /> Users List</a></li>
-          <li><a href={`https://coursemanagementsystembackend-production.up.railway.app/api/v1/course-list/${id}`}><FontAwesomeIcon icon={faGraduationCap} /> Courses List</a></li>
-          <li><a href={`https://coursemanagementsystembackend-production.up.railway.app/api/v1/settings1/${id}`}><FontAwesomeIcon icon={faCog} /> Profile</a></li>
-          <li><a href={`https://coursemanagementsystembackend-production.up.railway.app/api/v1/help1/${id}`}><FontAwesomeIcon icon={faQuestionCircle} /> Help</a></li>
-          <li><a href="https://coursemanagementsystembackend-production.up.railway.app/api/v1/login"><FontAwesomeIcon icon={faSignOutAlt} /> Logout</a></li>
+           <ul>
+        <li><a href={`/admin-dashboard/${id}`}><FontAwesomeIcon icon={faHome} /> Home</a></li>
+          <li><a href={`/students-list/${id}`}><FontAwesomeIcon icon={faUsersCog} /> Users List</a></li>
+          <li><a href={`/course-list/${id}`}><FontAwesomeIcon icon={faGraduationCap} /> Courses List</a></li>
+          <li><a href={`/settings1/${id}`}><FontAwesomeIcon icon={faCog} /> Profile</a></li>
+          <li><a href={`/help1/${id}`}><FontAwesomeIcon icon={faQuestionCircle} /> Help</a></li>
+          <li><a href="/login"><FontAwesomeIcon icon={faSignOutAlt} /> Logout</a></li>
         </ul>
             <footer>
                         <p>&copy; 2024 Uppada Giridhar. All Rights Reserved.</p>
