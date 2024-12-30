@@ -26,7 +26,7 @@ function RegisterComponent() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post("https://coursemanagementsystembackend-production.up.railway.app/v1/users/register", user)
+        axios.post("https://coursemanagementsystembackend-production.up.railway.app/api/v1/users/register", user)
             .then(() => {
                 setPopupMessage("Registration successful!");
                 setIsError(false);
