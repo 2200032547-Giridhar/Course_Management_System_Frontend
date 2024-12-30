@@ -25,7 +25,7 @@ function StudentList() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`http://localhost:8080/api/v1/users/${id}`)
+    fetch(`https://coursemanagementsystembackend-production.up.railway.app/api/v1/users/${id}`)
         .then((response) => response.json())
         .then((data) => setStudentDetails(data))
         .catch((error) => console.error(error));
@@ -54,9 +54,9 @@ useEffect(() => {
         console.error("Error fetching data:", error);
       }
     };
-    fetchData("http://localhost:8080/api/v1/users/students", setStudents);
-    fetchData("http://localhost:8080/api/v1/users/faculties", setFaculties);
-    fetchData("http://localhost:8080/api/v1/users/admins", setAdmins);
+    fetchData("https://coursemanagementsystembackend-production.up.railway.app/api/v1/users/students", setStudents);
+    fetchData("https://coursemanagementsystembackend-production.up.railway.app/api/v1/users/faculties", setFaculties);
+    fetchData("https://coursemanagementsystembackend-production.up.railway.app/api/v1/users/admins", setAdmins);
   }, []);
 
   const handleUpdateClick = (id) => {
@@ -73,7 +73,7 @@ useEffect(() => {
   const handleDelete = (id) => {
     const confirmation = window.confirm("Are you sure you want to delete this entry?");
     if (confirmation) {
-      fetch(`http://localhost:8080/api/v1/users/${id}`, {
+      fetch(`https://coursemanagementsystembackend-production.up.railway.app/api/v1/users/${id}`, {
         method: "DELETE",
       })
         .then((response) => {
