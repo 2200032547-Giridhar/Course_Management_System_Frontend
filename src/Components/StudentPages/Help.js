@@ -23,7 +23,7 @@ function Help() {
   // Fetch student details
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/api/v1/users/${id}`)
+      .get(`https://coursemanagementsystembackend-production.up.railway.app/api/v1/users/${id}`)
       .then((response) => setStudentDetails(response.data))
       .catch((error) => console.error("Error fetching student details:", error));
   }, [id]);
