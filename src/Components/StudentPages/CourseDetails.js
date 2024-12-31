@@ -3,73 +3,103 @@ import axios from 'axios';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import './CourseDetails.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-    faSignOutAlt, faHome, faGraduationCap, faChartBar,
-    faTasks, faCog, faQuestionCircle
-} from "@fortawesome/free-solid-svg-icons";
+import { faSignOutAlt, faHome, faGraduationCap, faChartBar, faTasks, faCog, faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
 
-function CourseDetails() {
-    const { id, courseId } = useParams();
+function CourseDetails({ userId }) {
+    const { courseId } = useParams();
     const [searchQuery, setSearchQuery] = useState("");
     const [course, setCourse] = useState(null);
     const [relatedCourses, setRelatedCourses] = useState([]);
     const [ratedCourses, setRatedCourses] = useState([]);
     const [isEnrolled, setIsEnrolled] = useState(false);
-    const [studentDetails, setStudentDetails] = useState({});
     const navigate = useNavigate();
+    const [user, setUser] = useState(null); 
+    const { id } = useParams(); // Access user ID from the URL
+    const [studentDetails, setStudentDetails] = useState({});
 
     useEffect(() => {
-        // Fetch student details
         fetch(`https://coursemanagementsystembackend-production.up.railway.app/api/v1/users/${id}`)
             .then((response) => response.json())
             .then((data) => setStudentDetails(data))
-            .catch((error) => console.error('Error fetching student details:', error));
+            .catch((error) => console.error(error));
     }, [id]);
 
+
     useEffect(() => {
-        // Check if the student is enrolled in the course
         axios.get(`https://coursemanagementsystembackend-production.up.railway.app/api/v1/courses/${id}/${courseId}/is-enrolled`)
             .then(response => setIsEnrolled(response.data))
             .catch(error => console.error('Error checking enrollment status:', error));
     }, [id, courseId]);
 
-    useEffect(() => {
-        // Fetch course details
-        axios.get(`https://coursemanagementsystembackend-production.up.railway.app/api/v1/courses/${id}/${courseId}`)
-            .then(response => setCourse(response.data))
-            .catch(error => console.error('Error fetching course details:', error));
 
-        // Fetch related courses
-        axios.get('https://coursemanagementsystembackend-production.up.railway.app/api/v1/courses/course-list')
-            .then(response => {
-                const shuffledCourses = response.data.sort(() => Math.random() - 0.5);
-                setRelatedCourses(shuffledCourses.slice(0, 6));
-                setRatedCourses(shuffledCourses.slice(0, 6)); // Assuming the same endpoint provides rated courses
-            })
-            .catch(error => console.error('Error fetching courses:', error));
-    }, [courseId, id]);
+    useEffect(() => {
+        const storedUser = JSON.parse(localStorage.getItem("user"));
+        if (storedUser) {
+            setUser(storedUser);  // Set the user info to state
+            // Redirect to the dashboard with student ID in the URL (assuming the student ID is stored in user.id)
+            navigate(`/courses/${id}/${courseId}`);
+        } else {
+            navigate("/login");  // If no user, redirect to login page
+        }
+    }, [navigate, id, courseId]);
 
     const handleEnroll = async () => {
         if (!id) {
             alert("Please log in first to enroll in a course.");
+            console.log('userId:', id);  // Debugging statement
             return;
         }
-
+    
         try {
-            const response = await axios.post(`https://coursemanagementsystembackend-production.up.railway.app/api/v1/courses/${id}/${courseId}/enroll`);
+            const response = await axios.post(`https://coursemanagementsystembackend-production.up.railway.app/api/v1/courses/${id}/${courseId}/enroll`, null, {
+                params: {
+                    id: id,
+                    courseId: course.courseId
+                }
+            });
             alert(response.data); // Show success message
-            setIsEnrolled(true);
         } catch (error) {
-            console.error('Error enrolling in the course:', error);
+            console.error('There was an error enrolling the course:', error);
             alert('Enrollment failed');
         }
     };
+    
+
+    useEffect(() => {
+        axios.get(`https://coursemanagementsystembackend-production.up.railway.app/api/v1/courses/${id}/${courseId}`)
+            .then(response => {
+                setCourse(response.data);
+            })
+            .catch(error => console.error('Error fetching course details', error));
+
+        axios.get('https://coursemanagementsystembackend-production.up.railway.app/api/v1/courses/course-list')
+            .then(response => {
+                const shuffledCourses = response.data.sort(() => Math.random() - 0.5);
+                setRelatedCourses(shuffledCourses.slice(0, 6)); 
+            })
+            .catch(error => console.error('Error fetching related courses', error));
+    }, [courseId, id]);
+
+    useEffect(() => {
+        axios.get(`https://coursemanagementsystembackend-production.up.railway.app/api/v1/courses/${id}/${courseId}`)
+            .then(response => {
+                setCourse(response.data);
+            })
+            .catch(error => console.error('Error fetching course details', error));
+
+        axios.get('https://coursemanagementsystembackend-production.up.railway.app/api/v1/courses/course-list')
+            .then(response => {
+                const shuffledCourses = response.data.sort(() => Math.random() - 0.5);
+                setRatedCourses(shuffledCourses.slice(0, 6)); 
+            })
+            .catch(error => console.error('Error fetching related courses', error));
+    }, [courseId, id]);
+
+    if (!course) return <div className="loading">Loading...</div>;
 
     const handleSearchChange = (e) => {
         setSearchQuery(e.target.value);
     };
-
-    if (!course) return <div className="loading">Loading...</div>;
 
     return (
         <div className="dashboard-container">
@@ -134,29 +164,37 @@ function CourseDetails() {
             <div className="main-content">
                 <header className="dashboard-header">
                     <div className="search-bar">
-                        <input
-                            type="text"
-                            placeholder="Search courses..."
-                            value={searchQuery}
-                            onChange={handleSearchChange}
+                        <input 
+                            type="text" 
+                            placeholder="Search courses..." 
+                            value={searchQuery} 
+                            onChange={handleSearchChange} 
                         />
                     </div>
                     <h2>Welcome to the Student Dashboard</h2>
                     <div className="username">
-                        <p>Hello, <strong>{studentDetails.firstName} {studentDetails.lastName}</strong></p>
+                    {user && (
+                        <div className="username">
+                            <p>Hello, <strong> {studentDetails.firstName} {studentDetails.lastName}</strong></p>  {/* Displaying username */}
+                        </div>
+                    )}
                     </div>
                 </header>
+
                 <div className="course-details-container">
                     <div className="course-banner">
                         <img src={course.image} alt={course.courseName} className="course-banner-img" />
                     </div>
+
                     <div className="course-info">
                         <h1 className="course-title">{course.courseName}</h1>
                         <p className="course-subtitle">{course.shortDescription}</p>
+
                         <div className="course-overview">
                             <h2>About This Course</h2>
                             <p>{course.description}</p>
                         </div>
+
                         <div className="course-details">
                             <div className="course-duration">
                                 <strong>Duration:</strong> {course.duration}
@@ -168,14 +206,16 @@ function CourseDetails() {
                                 <strong>Rating:</strong> {course.rating} ⭐
                             </div>
                         </div>
+
                         <div className="enroll-btn-container">
-                            {!isEnrolled ? (
-                                <button className="enroll-btn" onClick={handleEnroll}>Enroll Now</button>
-                            ) : (
-                                <p className="already-enrolled">You are already enrolled in this course.</p>
-                            )}
+                        {!isEnrolled ? (
+                            <button className="enroll-btn" onClick={handleEnroll}>Enroll Now</button>
+                        ) : (
+                            <p className="already-enrolled">You are already enrolled in this course.</p>
+                        )}
                         </div>
                     </div>
+
                     <div className="related-courses">
                         <h2>Related Courses</h2>
                         <div className="courses-home1">
@@ -194,14 +234,14 @@ function CourseDetails() {
                     <div className="rated-courses">
                         <h2>Top Rated Courses</h2>
                         <div className="courses-home1">
-                            {ratedCourses.map((ratedCourse, index) => (
+                            {ratedCourses.map((ratedCourses, index) => (
                                 <div className="course-card" key={index}>
-                                    <img src={ratedCourse.image} alt={ratedCourse.courseName} className="course-image" />
-                                    <h3>{ratedCourse.courseName}</h3>
-                                    <p>{ratedCourse.description}</p>
-                                    <p><strong>Rating:</strong> {ratedCourse.rating} ⭐</p>
-                                    <p><strong>Fees:</strong> {ratedCourse.price}</p>
-                                    <Link to={`/courses/${id}/${ratedCourse.courseId}`} className="button-link">View Details</Link>
+                                    <img src={ratedCourses.image} alt={ratedCourses.courseName} className="course-image" />
+                                    <h3>{ratedCourses.courseName}</h3>
+                                    <p>{ratedCourses.description}</p>
+                                    <p><strong>Rating:</strong> {ratedCourses.rating} ⭐</p>
+                                    <p><strong>Fees:</strong> {ratedCourses.price}</p>
+                                    <Link to={`/courses/${id}/${ratedCourses.courseId}`} className="button-link">View Details</Link>
                                 </div>
                             ))}
                         </div>
