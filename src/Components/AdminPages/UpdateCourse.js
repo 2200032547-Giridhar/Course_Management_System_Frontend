@@ -15,10 +15,13 @@ function UpdateCourse({ courseId, onClose, onUpdate }) {
 
   useEffect(() => {
     // Fetch the course data from the API when the modal opens
-    fetch(`https://coursemanagementsystembackend-production.up.railway.app/api/v1/courses/${courseId}`)
+    fetch(`https://coursemanagementsystembackend-production.up.railway.app/api/v1/courses/course-list`)
       .then((response) => response.json())
       .then((data) => {
-        setCourse(data); // Set the course data from the API to state
+        const courseData = data.find((c) => c.courseId === parseInt(courseId));
+        if (courseData) {
+          setCourse(courseData);
+        }
       })
       .catch((error) => {
         console.error('Error fetching course data:', error);
