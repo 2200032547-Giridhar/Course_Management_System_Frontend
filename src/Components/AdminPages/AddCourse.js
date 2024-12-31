@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import "./AddCourse.css";
+import './AddCourse.css';
 
 const AddCourse = ({ onClose }) => {
   const [courseName, setCourseName] = useState('');
@@ -11,12 +11,16 @@ const AddCourse = ({ onClose }) => {
   const [price, setPrice] = useState(0);
   const [rating, setRating] = useState(0);
   const [category, setCategory] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const API_URL = 'https://coursemanagementsystembackend-production.up.railway.app/api/v1/courses';
   const CREATE_COURSE_API = `${API_URL}/create-course`;
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
+    setError('');
 
     const newCourse = {
       courseName,
@@ -29,19 +33,23 @@ const AddCourse = ({ onClose }) => {
       category,
     };
 
-    axios
-      .post(CREATE_COURSE_API, newCourse)
-      .then((response) => {
-        onClose(); // Close modal after success
-      })
-      .catch((error) => {
-      });
+    try {
+      const response = await axios.post(CREATE_COURSE_API, newCourse);
+      console.log('Course created successfully:', response.data);
+      onClose(); // Close modal after success
+    } catch (err) {
+      setError('Failed to add course. Please try again.');
+      console.error('Error creating course:', err);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
     <div className="course-add-modal">
       <div className="course-modal-container">
         <h2>Add New Course</h2>
+        {error && <div className="error-message">{error}</div>}
         <form onSubmit={handleSubmit}>
           <div>
             <label>Course Name:</label>
@@ -74,7 +82,8 @@ const AddCourse = ({ onClose }) => {
             <input
               type="number"
               value={enrollmentCount}
-              onChange={(e) => setEnrollmentCount(e.target.value)}
+              onChange={(e) => setEnrollmentCount(Number(e.target.value))}
+              min="0"
               required
             />
           </div>
@@ -91,7 +100,8 @@ const AddCourse = ({ onClose }) => {
             <input
               type="number"
               value={price}
-              onChange={(e) => setPrice(e.target.value)}
+              onChange={(e) => setPrice(Number(e.target.value))}
+              min="0"
               required
             />
           </div>
@@ -100,7 +110,9 @@ const AddCourse = ({ onClose }) => {
             <input
               type="number"
               value={rating}
-              onChange={(e) => setRating(e.target.value)}
+              onChange={(e) => setRating(Number(e.target.value))}
+              min="0"
+              max="5"
               required
             />
           </div>
@@ -114,8 +126,12 @@ const AddCourse = ({ onClose }) => {
           </div>
 
           <div className="modal-buttons">
-            <button type="submit" className="submit-btn">Add Course</button>
-            <button type="button" className="cancel-btn" onClick={onClose}>Cancel</button>
+            <button type="submit" className="submit-btn" disabled={isLoading}>
+              {isLoading ? 'Adding...' : 'Add Course'}
+            </button>
+            <button type="button" className="cancel-btn" onClick={onClose} disabled={isLoading}>
+              Cancel
+            </button>
           </div>
         </form>
       </div>
