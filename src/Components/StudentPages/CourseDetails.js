@@ -26,7 +26,7 @@ function CourseDetails({ userId }) {
 
 
     useEffect(() => {
-        axios.get(`http://localhost:8080/api/v1/courses/${id}/${courseId}/is-enrolled`)
+        axios.get(`https://coursemanagementsystembackend-production.up.railway.app/api/v1/courses/${id}/${courseId}/is-enrolled`)
             .then(response => setIsEnrolled(response.data))
             .catch(error => console.error('Error checking enrollment status:', error));
     }, [id, courseId]);
@@ -51,7 +51,7 @@ function CourseDetails({ userId }) {
         }
     
         try {
-            const response = await axios.post(`http://localhost:8080/api/v1/courses/${id}/${courseId}/enroll`, null, {
+            const response = await axios.post(`https://coursemanagementsystembackend-production.up.railway.app/api/v1/courses/${id}/${courseId}/enroll`, null, {
                 params: {
                     id: id,
                     courseId: course.courseId
@@ -66,13 +66,13 @@ function CourseDetails({ userId }) {
     
 
     useEffect(() => {
-        axios.get(`http://localhost:8080/api/v1/courses/${id}/${courseId}`)
+        axios.get(`https://coursemanagementsystembackend-production.up.railway.app/api/v1/courses/${id}/${courseId}`)
             .then(response => {
                 setCourse(response.data);
             })
             .catch(error => console.error('Error fetching course details', error));
 
-        axios.get('http://localhost:8080/api/v1/courses/course-list')
+        axios.get('https://coursemanagementsystembackend-production.up.railway.app/api/v1/courses/course-list')
             .then(response => {
                 const shuffledCourses = response.data.sort(() => Math.random() - 0.5);
                 setRelatedCourses(shuffledCourses.slice(0, 6)); 
@@ -81,13 +81,13 @@ function CourseDetails({ userId }) {
     }, [courseId, id]);
 
     useEffect(() => {
-        axios.get(`http://localhost:8080/api/v1/courses/${id}/${courseId}`)
+        axios.get(`https://coursemanagementsystembackend-production.up.railway.app/api/v1/courses/${id}/${courseId}`)
             .then(response => {
                 setCourse(response.data);
             })
             .catch(error => console.error('Error fetching course details', error));
 
-        axios.get('http://localhost:8080/api/v1/courses/course-list')
+        axios.get(`https://coursemanagementsystembackend-production.up.railway.app/api/v1/courses/course-list')
             .then(response => {
                 const shuffledCourses = response.data.sort(() => Math.random() - 0.5);
                 setRatedCourses(shuffledCourses.slice(0, 6)); 
