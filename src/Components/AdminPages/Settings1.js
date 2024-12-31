@@ -12,7 +12,7 @@ import {
     faQuestionCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import "./Settings1.css";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
 
 function Settings1() {
     const navigate = useNavigate();
@@ -97,37 +97,43 @@ function Settings1() {
             <div className="sidebar">
                 <div className="logo">Coding Courses</div>
                 <ul>
-                    <li>
-                        <a href={`/admin-dashboard/${id}`}>
-                            <FontAwesomeIcon icon={faHome} /> Home
-                        </a>
-                    </li>
-                    <li>
-                        <a href={`/students-list/${id}`}>
-                            <FontAwesomeIcon icon={faUsersCog} /> Users List
-                        </a>
-                    </li>
-                    <li>
-                        <a href={`/course-list/${id}`}>
-                            <FontAwesomeIcon icon={faGraduationCap} /> Courses List
-                        </a>
-                    </li>
-                    <li>
-                        <a href={`/settings1/${id}`}>
-                            <FontAwesomeIcon icon={faCog} /> Profile
-                        </a>
-                    </li>
-                    <li>
-                        <a href={`/help1/${id}`}>
-                            <FontAwesomeIcon icon={faQuestionCircle} /> Help
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/login">
-                            <FontAwesomeIcon icon={faSignOutAlt} /> Logout
-                        </a>
-                    </li>
-                </ul>
+  <li>
+    <Link to={`/admin-dashboard/${id}`}>
+      <FontAwesomeIcon icon={faHome} />
+      <span className="nav-item">Home</span>
+    </Link>
+  </li>
+  <li>
+    <Link to={`/students-list/${id}`}>
+      <FontAwesomeIcon icon={faUsersCog} />
+      <span className="nav-item">Users List</span>
+    </Link>
+  </li>
+  <li>
+    <Link to={`/course-list/${id}`}>
+      <FontAwesomeIcon icon={faGraduationCap} />
+      <span className="nav-item">Courses List</span>
+    </Link>
+  </li>
+  <li>
+    <Link to={`/settings1/${id}`}>
+      <FontAwesomeIcon icon={faCog} />
+      <span className="nav-item">Profile</span>
+    </Link>
+  </li>
+  <li>
+    <Link to={`/help1/${id}`}>
+      <FontAwesomeIcon icon={faQuestionCircle} />
+      <span className="nav-item">Help</span>
+    </Link>
+  </li>
+  <li>
+    <Link to="/login">
+      <FontAwesomeIcon icon={faSignOutAlt} />
+      <span>Logout</span>
+    </Link>
+  </li>
+</ul>
                 <footer>
                     <p>&copy; 2024 Uppada Giridhar. All Rights Reserved.</p>
                     <div className="social-icons">
