@@ -21,7 +21,6 @@ function AdminDashboard() {
     admins: 0,
   });
   const [courseCount, setCourseCount] = useState(0);
-  const [user, setUser] = useState(null);
   const [studentDetails, setStudentDetails] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -30,16 +29,13 @@ function AdminDashboard() {
   const { id } = useParams(); // Access user ID from the URL
   const navigate = useNavigate();
 
+  // Fetch user data and role counts when component mounts
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
-    if (storedUser) {
-      setUser(storedUser);
-    } else {
+    if (!storedUser) {
       navigate("/login"); // Redirect to login page if no user found
     }
-  }, [navigate]);
 
-  useEffect(() => {
     async function fetchDashboardData() {
       try {
         setLoading(true);
@@ -87,7 +83,7 @@ function AdminDashboard() {
     }
 
     fetchDashboardData();
-  }, [id]);
+  }, [id, navigate]);
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
