@@ -101,7 +101,6 @@ const AddCourse = ({ onClose }) => {
               type="number"
               value={price}
               onChange={(e) => setPrice(Number(e.target.value))}
-              min="0"
               required
             />
           </div>
@@ -111,8 +110,6 @@ const AddCourse = ({ onClose }) => {
               type="number"
               value={rating}
               onChange={(e) => setRating(Number(e.target.value))}
-              min="0"
-              max="5"
               required
             />
           </div>
