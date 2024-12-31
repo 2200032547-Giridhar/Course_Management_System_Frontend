@@ -19,68 +19,87 @@ function AdminDashboard() {
     students: 0,
     faculties: 0,
     admins: 0,
-    courses: 0,
   });
-  const [user, setUser] = useState(null); 
+  const [courseCount, setCourseCount] = useState(0);
+  const [user, setUser] = useState(null);
+  const [studentDetails, setStudentDetails] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
+
   const { id } = useParams(); // Access user ID from the URL
-  const [studentDetails, setStudentDetails] = useState({});
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`https://coursemanagementsystembackend-production.up.railway.app/api/v1/users/${id}`)
-        .then((response) => response.json())
-        .then((data) => setStudentDetails(data))
-        .catch((error) => console.error(error));
-}, [id]);
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    if (storedUser) {
+      setUser(storedUser);
+    } else {
+      navigate("/login"); // Redirect to login page if no user found
+    }
+  }, [navigate]);
 
-useEffect(() => {
-  const storedUser = JSON.parse(localStorage.getItem("user"));
-  if (storedUser) {
-      setUser(storedUser);  // Set the user info to state
-      // Redirect to the dashboard with student ID in the URL (assuming the student ID is stored in user.id)
-      navigate(`/admin-dashboard/${id}`);
-  } else {
-      navigate("/login");  // If no user, redirect to login page
-  }
-}, [navigate, id]);
-
-  const [courseCount, setCourseCount] = useState(0);
   useEffect(() => {
-    // Function to fetch role counts
-    async function fetchRoleCounts() {
+    async function fetchDashboardData() {
       try {
-        const response = await fetch("https://coursemanagementsystembackend-production.up.railway.app/api/v1/users/overview");
-        const data = await response.json();
+        setLoading(true);
+        setError(null);
+
+        // Fetch user details
+        const userResponse = await fetch(
+          `https://coursemanagementsystembackend-production.up.railway.app/api/v1/users/${id}`
+        );
+        if (!userResponse.ok) {
+          throw new Error("Failed to fetch user details.");
+        }
+        const userData = await userResponse.json();
+        setStudentDetails(userData);
+
+        // Fetch role counts
+        const roleResponse = await fetch(
+          "https://coursemanagementsystembackend-production.up.railway.app/api/v1/users/overview"
+        );
+        if (!roleResponse.ok) {
+          throw new Error("Failed to fetch role counts.");
+        }
+        const roleData = await roleResponse.json();
         setRoleCounts({
-          students: data.students || 0,
-          faculties: data.faculties || 0,
-          admins: data.admins || 0,
+          students: roleData.students || 0,
+          faculties: roleData.faculties || 0,
+          admins: roleData.admins || 0,
         });
-      } catch (error) {
-        console.error("Error fetching user counts:", error);
+
+        // Fetch course count
+        const courseResponse = await fetch(
+          "https://coursemanagementsystembackend-production.up.railway.app/api/v1/courses/course-count"
+        );
+        if (!courseResponse.ok) {
+          throw new Error("Failed to fetch course count.");
+        }
+        const courseData = await courseResponse.json();
+        setCourseCount(courseData.courses || 0);
+      } catch (err) {
+        console.error(err);
+        setError(err.message);
+      } finally {
+        setLoading(false);
       }
     }
 
-    // Function to fetch course count
-    async function fetchCourseCount() {
-      try {
-        const response = await fetch("https://coursemanagementsystembackend-production.up.railway.app/api/v1/courses/course-count");
-        const data = await response.json();
-        setCourseCount(data.courses || 0); // Only updating course count
-      } catch (error) {
-        console.error("Error fetching course count:", error);
-      }
-    }
+    fetchDashboardData();
+  }, [id]);
 
-    // Fetching both sets of data
-    fetchRoleCounts();
-    fetchCourseCount();
-  }, []); // Empty dependency array ensures this effect runs once when the component mounts
-
-  const [searchQuery, setSearchQuery] = useState("");
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
   };
+
+  if (loading) {
+    return <div className="loading">Loading...</div>;
+  }
+
+  if (error) {
+    return <div className="error">Error: {error}</div>;
+  }
 
   return (
     <div className="dashboard-container">
@@ -129,16 +148,32 @@ useEffect(() => {
         <footer>
           <p>&copy; 2024 Uppada Giridhar. All Rights Reserved.</p>
           <div className="social-icons">
-            <a href="https://www.facebook.com/sanjay.uppada.7/" target="_blank" rel="noopener noreferrer">
+            <a
+              href="https://www.facebook.com/sanjay.uppada.7/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <i className="fab fa-facebook"></i>
             </a>
-            <a href="https://x.com/giridhar_uppada" target="_blank" rel="noopener noreferrer">
+            <a
+              href="https://x.com/giridhar_uppada"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <i className="fab fa-twitter"></i>
             </a>
-            <a href="https://www.linkedin.com/in/uppada-giridhar/" target="_blank" rel="noopener noreferrer">
+            <a
+              href="https://www.linkedin.com/in/uppada-giridhar/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <i className="fab fa-linkedin"></i>
             </a>
-            <a href="https://www.instagram.com/__sanjay__uppada__/?__pwa=1" target="_blank" rel="noopener noreferrer">
+            <a
+              href="https://www.instagram.com/__sanjay__uppada__/?__pwa=1"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <i className="fab fa-instagram"></i>
             </a>
           </div>
@@ -158,11 +193,11 @@ useEffect(() => {
           </div>
           <h2>Welcome to the Admin Dashboard</h2>
           <div className="username">
-          {user && (
-                        <div className="username">
-                            <p>Hello, <strong> {studentDetails.firstName} {studentDetails.lastName}</strong></p>  {/* Displaying username */}
-                        </div>
-                    )}
+            {studentDetails && (
+              <p>
+                Hello, <strong>{studentDetails.firstName} {studentDetails.lastName}</strong>
+              </p>
+            )}
           </div>
         </header>
 
