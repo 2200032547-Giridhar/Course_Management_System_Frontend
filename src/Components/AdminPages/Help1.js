@@ -12,13 +12,13 @@ import {
 import "./Help1.css";
 
 function Help1() {
-  const [user, setUser] = useState(null); // For user details from local storage
-  const { id } = useParams(); // Access user ID from the URL
-  const [studentDetails, setStudentDetails] = useState({});
-  const [searchQuery, setSearchQuery] = useState(""); // Search functionality
+  const [user, setUser] = useState(null); // Stores user details from local storage
+  const { id } = useParams(); // Retrieves user ID from the URL
+  const [studentDetails, setStudentDetails] = useState({}); // Stores student details
+  const [searchQuery, setSearchQuery] = useState(""); // For search functionality
   const navigate = useNavigate();
 
-  // Fetch student details
+  // Fetch student details using the ID from URL
   useEffect(() => {
     const fetchStudentDetails = async () => {
       try {
@@ -27,7 +27,7 @@ function Help1() {
         );
         if (!response.ok) throw new Error("Failed to fetch student details.");
         const data = await response.json();
-        setStudentDetails(data);
+        setStudentDetails(data); // Set the fetched data to state
       } catch (error) {
         console.error("Error fetching student details:", error);
       }
@@ -36,24 +36,24 @@ function Help1() {
     if (id) fetchStudentDetails();
   }, [id]);
 
-  // Authenticate and redirect user
+  // Authenticate user and redirect to login if unauthenticated
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
     if (storedUser) {
-      setUser(storedUser); // Set user info to state
+      setUser(storedUser); // Set user details to state
     } else {
-      navigate("/login"); // If no user, redirect to login page
+      navigate("/login"); // Redirect to login if no user data is found
     }
   }, [navigate]);
 
-  // Handle search input change
+  // Handle search bar input changes
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
   };
 
   // Logout functionality
   const handleLogout = () => {
-    localStorage.removeItem("user"); // Remove user from local storage
+    localStorage.removeItem("user"); // Remove user data from local storage
     navigate("/login"); // Redirect to login page
   };
 
@@ -65,43 +65,43 @@ function Help1() {
           <div className="logo">Coding Courses</div>
         </div>
         <ul>
-  <li>
-    <Link to={`/admin-dashboard/${id}`}>
-      <FontAwesomeIcon icon={faHome} />
-      <span className="nav-item">Home</span>
-    </Link>
-  </li>
-  <li>
-    <Link to={`/students-list/${id}`}>
-      <FontAwesomeIcon icon={faUsersCog} />
-      <span className="nav-item">Users List</span>
-    </Link>
-  </li>
-  <li>
-    <Link to={`/course-list/${id}`}>
-      <FontAwesomeIcon icon={faGraduationCap} />
-      <span className="nav-item">Courses List</span>
-    </Link>
-  </li>
-  <li>
-    <Link to={`/settings1/${id}`}>
-      <FontAwesomeIcon icon={faCog} />
-      <span className="nav-item">Profile</span>
-    </Link>
-  </li>
-  <li>
-    <Link to={`/help1/${id}`}>
-      <FontAwesomeIcon icon={faQuestionCircle} />
-      <span className="nav-item">Help</span>
-    </Link>
-  </li>
-  <li>
-    <Link to="/login">
-      <FontAwesomeIcon icon={faSignOutAlt} />
-      <span>Logout</span>
-    </Link>
-  </li>
-</ul>
+          <li>
+            <Link to={`/admin-dashboard/${id}`}>
+              <FontAwesomeIcon icon={faHome} />
+              <span className="nav-item">Home</span>
+            </Link>
+          </li>
+          <li>
+            <Link to={`/students-list/${id}`}>
+              <FontAwesomeIcon icon={faUsersCog} />
+              <span className="nav-item">Users List</span>
+            </Link>
+          </li>
+          <li>
+            <Link to={`/course-list/${id}`}>
+              <FontAwesomeIcon icon={faGraduationCap} />
+              <span className="nav-item">Courses List</span>
+            </Link>
+          </li>
+          <li>
+            <Link to={`/settings1/${id}`}>
+              <FontAwesomeIcon icon={faCog} />
+              <span className="nav-item">Profile</span>
+            </Link>
+          </li>
+          <li>
+            <Link to={`/help1/${id}`}>
+              <FontAwesomeIcon icon={faQuestionCircle} />
+              <span className="nav-item">Help</span>
+            </Link>
+          </li>
+          <li>
+            <button onClick={handleLogout} className="logout-btn">
+              <FontAwesomeIcon icon={faSignOutAlt} />
+              <span>Logout</span>
+            </button>
+          </li>
+        </ul>
         <footer>
           <p>&copy; 2024 Uppada Giridhar. All Rights Reserved.</p>
           <div className="social-icons">
@@ -153,7 +153,10 @@ function Help1() {
           <div className="username">
             {user && (
               <p>
-                Hello, <strong>{studentDetails.firstName} {studentDetails.lastName}</strong>
+                Hello,{" "}
+                <strong>
+                  {studentDetails.firstName} {studentDetails.lastName}
+                </strong>
               </p>
             )}
           </div>
@@ -170,81 +173,68 @@ function Help1() {
               <li>
                 <strong>1. How do I view all users?</strong>
                 <p>
-                  To view all users, go to the "Users List" section from the
-                  sidebar. You can filter users by role (students, faculties,
-                  admins).
+                  Go to the "Users List" section from the sidebar to view all
+                  users. Filter by role (students, faculties, admins).
                 </p>
               </li>
               <li>
                 <strong>2. How do I manage courses?</strong>
                 <p>
-                  Navigate to the "Courses List" section to manage all available
-                  courses. From here, you can add, edit, or delete courses as
-                  needed.
+                  Navigate to the "Courses List" section to add, edit, or delete
+                  courses.
                 </p>
               </li>
               <li>
                 <strong>3. How can I edit a user's role?</strong>
                 <p>
-                  You can edit user roles by accessing the user's profile in the
-                  "Users List" section. There, you can assign roles like
-                  Student, Faculty, or Admin.
+                  Edit roles by accessing a user’s profile in "Users List."
                 </p>
               </li>
               <li>
-                <strong>4. How do I generate reports for users and courses?</strong>
+                <strong>4. How do I generate reports?</strong>
                 <p>
-                  Reports for users and courses can be generated by clicking on
-                  the "Generate Report" button within the "Users List" or
-                  "Courses List" sections.
+                  Generate reports using the "Generate Report" button in the
+                  relevant sections.
                 </p>
               </li>
               <li>
                 <strong>5. How can I manage course content?</strong>
                 <p>
-                  To manage course content, select a course from the "Courses
-                  List" section. You can upload new materials, edit existing
-                  content, and set prerequisites for courses.
+                  Select a course from "Courses List" to upload or edit
+                  materials.
                 </p>
               </li>
               <li>
                 <strong>6. How do I reset a user's password?</strong>
                 <p>
-                  If a user forgets their password, you can reset it by visiting
-                  their profile in the "Users List" and clicking the "Reset
-                  Password" option.
+                  Visit a user’s profile in "Users List" and click "Reset
+                  Password."
                 </p>
               </li>
               <li>
                 <strong>7. Can I view user activity?</strong>
                 <p>
-                  Yes, user activity can be tracked by visiting the "User
-                  Profile" page. You can view courses they've enrolled in,
-                  completion status, and other activity details.
+                  Check "User Profile" for enrolled courses and activity
+                  details.
                 </p>
               </li>
               <li>
                 <strong>8. How do I contact technical support?</strong>
                 <p>
-                  If you need assistance, use the "Contact Us" section or email
-                  us at support@codingcourses.com for help with technical issues
-                  or system errors.
+                  Use "Contact Us" or email support@codingcourses.com.
                 </p>
               </li>
               <li>
-                <strong>9. How do I customize settings for the platform?</strong>
+                <strong>9. How do I customize settings?</strong>
                 <p>
-                  Go to the "Settings" page to adjust platform settings, such as
-                  managing payment options, notification preferences, and other
-                  administrative tools.
+                  Visit "Settings" for notification preferences and tools.
                 </p>
               </li>
               <li>
                 <strong>10. Can I export course data?</strong>
                 <p>
-                  Yes, you can export course data by clicking the "Export"
-                  button on the "Courses List" page. The data will be available
-                  in CSV format for further analysis.
+                  Export data as CSV using the "Export" button in "Courses
+                  List."
                 </p>
               </li>
             </ul>
