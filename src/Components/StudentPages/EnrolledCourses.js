@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {  useParams, useNavigate } from 'react-router-dom';
+import {  useParams, useNavigate, Link } from 'react-router-dom';
 import { faSignOutAlt, faHome, faGraduationCap, faChartBar, faTasks, faCog, faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
 
 import './EnrolledCourses.css';
@@ -60,15 +60,51 @@ function EnrolledCourses() {
                 <div className="title">
                     <div className="logo">Coding Courses</div>
                 </div>
-               <ul>
-                    <li><a href={`/student-dashboard/${id}`}><FontAwesomeIcon icon={faHome} /><span>Home</span></a></li>
-                    <li><a href={`/courses/${id}`}><FontAwesomeIcon icon={faGraduationCap} /><span>Courses</span></a></li>
-                    <li><a href={`/${id}/enrolled-courses`}><FontAwesomeIcon icon={faChartBar} /><span>My Courses</span></a></li>
-                    <li><a href="tasks"><FontAwesomeIcon icon={faTasks} /><span>Tasks</span></a></li>
-                    <li><a href={`/settings/${id}`}><FontAwesomeIcon icon={faCog} /><span>Profile</span></a></li>
-                    <li><a href={`/Help/${id}`}><FontAwesomeIcon icon={faQuestionCircle} /><span>Help</span></a></li>
-                    <li><a href="/login"><FontAwesomeIcon icon={faSignOutAlt} /><span>Logout</span></a></li>
-                </ul>
+              <ul>
+  <li>
+    <Link to={`/student-dashboard/${id}`}>
+      <FontAwesomeIcon icon={faHome} />
+      <span>Home</span>
+    </Link>
+  </li>
+  <li>
+    <Link to={`/courses/${id}`}>
+      <FontAwesomeIcon icon={faGraduationCap} />
+      <span>Courses</span>
+    </Link>
+  </li>
+  <li>
+    <Link to={`/${id}/enrolled-courses`}>
+      <FontAwesomeIcon icon={faChartBar} />
+      <span>My Courses</span>
+    </Link>
+  </li>
+  <li>
+    <Link to="/tasks">
+      <FontAwesomeIcon icon={faTasks} />
+      <span>Tasks</span>
+    </Link>
+  </li>
+  <li>
+    <Link to={`/settings/${id}`}>
+      <FontAwesomeIcon icon={faCog} />
+      <span>Profile</span>
+    </Link>
+  </li>
+  <li>
+    <Link to={`/Help/${id}`}>
+      <FontAwesomeIcon icon={faQuestionCircle} />
+      <span>Help</span>
+    </Link>
+  </li>
+  <li>
+    <Link to="/login">
+      <FontAwesomeIcon icon={faSignOutAlt} />
+      <span>Logout</span>
+    </Link>
+  </li>
+</ul>
+
                 <footer>
                     <p>&copy; 2024 Uppada Giridhar. All Rights Reserved.</p>
                     <div className="social-icons">
