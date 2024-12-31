@@ -19,29 +19,30 @@ function StudentList() {
   const [searchQuery, setSearchQuery] = useState("");
   const [showUpdateForm, setShowUpdateForm] = useState(false);
   const [selectedUserId, setSelectedUserId] = useState(null);
-  const [user, setUser] = useState(null); 
+  const [user, setUser] = useState(null);
   const { id } = useParams(); // Access user ID from the URL
   const [studentDetails, setStudentDetails] = useState({});
   const navigate = useNavigate();
 
-  useEffect(() => {
-    fetch(`https://coursemanagementsystembackend-production.up.railway.app/api/v1/users/${id}`)
-        .then((response) => response.json())
-        .then((data) => setStudentDetails(data))
-        .catch((error) => console.error(error));
-}, [id]);
+  const backendUrl = "https://coursemanagementsystembackend-production.up.railway.app/api/v1";
 
-useEffect(() => {
-  const storedUser = JSON.parse(localStorage.getItem("user"));
-  if (storedUser) {
-      setUser(storedUser);  // Set the user info to state
+  useEffect(() => {
+    fetch(`${backendUrl}/users/${id}`)
+      .then((response) => response.json())
+      .then((data) => setStudentDetails(data))
+      .catch((error) => console.error(error));
+  }, [id]);
+
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    if (storedUser) {
+      setUser(storedUser); // Set the user info to state
       // Redirect to the dashboard with student ID in the URL (assuming the student ID is stored in user.id)
       navigate(`/students-list/${id}`);
-  } else {
-      navigate("/login");  // If no user, redirect to login page
-  }
-}, [navigate, id]);
-
+    } else {
+      navigate("/login"); // If no user, redirect to login page
+    }
+  }, [navigate, id]);
 
   useEffect(() => {
     const fetchData = async (url, setter) => {
@@ -54,9 +55,9 @@ useEffect(() => {
         console.error("Error fetching data:", error);
       }
     };
-    fetchData("https://coursemanagementsystembackend-production.up.railway.app/api/v1/users/students", setStudents);
-    fetchData("https://coursemanagementsystembackend-production.up.railway.app/api/v1/users/faculties", setFaculties);
-    fetchData("https://coursemanagementsystembackend-production.up.railway.app/api/v1/users/admins", setAdmins);
+    fetchData(`${backendUrl}/users/students`, setStudents);
+    fetchData(`${backendUrl}/users/faculties`, setFaculties);
+    fetchData(`${backendUrl}/users/admins`, setAdmins);
   }, []);
 
   const handleUpdateClick = (id) => {
@@ -73,7 +74,7 @@ useEffect(() => {
   const handleDelete = (id) => {
     const confirmation = window.confirm("Are you sure you want to delete this entry?");
     if (confirmation) {
-      fetch(`https://coursemanagementsystembackend-production.up.railway.app/api/v1/users/${id}`, {
+      fetch(`${backendUrl}/users/${id}`, {
         method: "DELETE",
       })
         .then((response) => {
@@ -140,7 +141,7 @@ useEffect(() => {
       <div className="sidebar">
         <div className="logo">Coding Courses</div>
         <ul>
-        <li><a href={`/admin-dashboard/${id}`}><FontAwesomeIcon icon={faHome} /> Home</a></li>
+          <li><a href={`/admin-dashboard/${id}`}><FontAwesomeIcon icon={faHome} /> Home</a></li>
           <li><a href={`/students-list/${id}`}><FontAwesomeIcon icon={faUsersCog} /> Users List</a></li>
           <li><a href={`/course-list/${id}`}><FontAwesomeIcon icon={faGraduationCap} /> Courses List</a></li>
           <li><a href={`/settings1/${id}`}><FontAwesomeIcon icon={faCog} /> Profile</a></li>
@@ -178,14 +179,14 @@ useEffect(() => {
           </div>
           <h2>Welcome to the Admin Dashboard</h2>
           <div className="username">
-          {user && (
-                        <div className="username">
-                            <p>Hello, <strong> {studentDetails.firstName} {studentDetails.lastName}</strong></p>  {/* Displaying username */}
-                        </div>
-                    )}
+            {user && (
+              <div className="username">
+                <p>Hello, <strong>{studentDetails.firstName} {studentDetails.lastName}</strong></p>
+              </div>
+            )}
           </div>
         </header>
-        
+
         {/* Render UpdateUser component if the update form should be visible */}
         {showUpdateForm && (
           <UpdateUser userId={selectedUserId} onClose={handleCloseUpdateForm} />
