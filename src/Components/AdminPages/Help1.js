@@ -11,7 +11,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import "./Help1.css";
 
-function AdminDashboard() {
+function Help1() {
   const [user, setUser] = useState(null); // For user details from local storage
   const { id } = useParams(); // Access user ID from the URL
   const [studentDetails, setStudentDetails] = useState({});
@@ -255,4 +255,4 @@ function AdminDashboard() {
   );
 }
 
-export default AdminDashboard;
+export default Help1;
